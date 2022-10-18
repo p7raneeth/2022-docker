@@ -1,6 +1,6 @@
 import json
 from dataclasses import dataclass, field
-
+import uvicorn 
 from fastapi import FastAPI, HTTPException, Response
 
 app = FastAPI()
@@ -25,7 +25,7 @@ with open("channels.json", encoding="utf8") as file:
 
 @app.get("/")
 def read_root() -> Response:
-    return Response("The server is running.")
+    return Response("The server is running.... automation is completed")
 
 
 @app.get("/channels/{channel_id}", response_model=Channel)
@@ -33,3 +33,7 @@ def read_item(channel_id: str) -> Channel:
     if channel_id not in channels:
         raise HTTPException(status_code=404, detail="Channel not found")
     return channels[channel_id]
+
+
+# if __name__ == "__main__":
+#     uvicorn.run(app, port=8080, host="0.0.0.0")
